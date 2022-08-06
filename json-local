@@ -1,0 +1,53 @@
+[
+{
+  "success": "string",
+  "contents": {
+    "quotes": [
+      {
+        "author": "Gustav Flamboiant",
+        "quote": "string",
+        "tags": [
+          "string"
+        ],
+        "id": "string",
+        "image": "images/flamboiant.jpg",
+        "length": 0
+      }
+    ]
+  }
+},
+{
+"success": "string",
+  "contents": {
+    "quotes": [
+      {
+        "author": "Cesars Containers",
+        "quote": "string",
+        "tags": [
+          "string"
+        ],
+        "id": "string",
+        "image": "images/port-containers.png",
+        "length": 0
+      }
+    ]
+  }
+},
+{
+"success": "string",
+  "contents": {
+    "quotes": [
+      {
+        "author": "Sun And Eclipse Enterprises",
+        "quote": "string",
+        "tags": [
+          "string"
+        ],
+        "id": "string",
+        "image": "images/sun-and-eclipse.jpeg",
+        "length": 0
+      }
+    ]
+  }
+}
+]

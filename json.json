@@ -1,0 +1,155 @@
+
+aula2 topTVs
+{"items":[
+{"id":"tt5491994", "rank":"1", "title":"Planet Earth II", "fullTitle":"Planet Earth II (2016)", "year":"2016", "image":"https://imersao-java-apis.s3.amazonaws.com/TopTVs_1.jpg", "crew":"David Attenborough, Chadden Hunter", "imDbRating":"9.4", "imDbRatingCount":"137192"},
+{"id":"tt0903747", "rank":"2", "title":"Breaking Bad", "fullTitle":"Breaking Bad (2008)", "year":"2008", "image":"https://imersao-java-apis.s3.amazonaws.com/TopTVs_2.jpg", "crew":"Bryan Cranston, Aaron Paul", "imDbRating":"9.4", "imDbRatingCount":"1769920"},
+{"id":"tt0795176", "rank":"3", "title":"Planet Earth", "fullTitle":"Planet Earth (2006)", "year":"2006", "image":"https://imersao-java-apis.s3.amazonaws.com/TopTVs_3.jpg", "crew":"Sigourney Weaver, David Attenborough", "imDbRating":"9.4", "imDbRatingCount":"203274"}],
+        "errorMessage":""}
+
+mostPopular TV
+{"items":[
+
+{"id":"tt4574334", "rank":"1", "rankUpDown":"0", "title":"Stranger Things", "fullTitle":"Stranger Things (2016)", "year":"2016", "image":"https://imersao-java-apis.s3.amazonaws.com/MostPopularTVs_1.jpg", "crew":"Millie Bobby Brown, Finn Wolfhard", "imDbRating":"8.7", "imDbRatingCount":"1092729"},
+{"id":"tt1190634", "rank":"2", "rankUpDown":"0", "title":"The Boys", "fullTitle":"The Boys (2019)", "year":"2019", "image":"https://imersao-java-apis.s3.amazonaws.com/MostPopularTVs_2.jpg", "crew":"Karl Urban, Jack Quaid", "imDbRating":"8.7", "imDbRatingCount":"418768"},
+{"id":"tt11743610", "rank":"3", "rankUpDown":"-1", "title":"The Terminal List", "fullTitle":"The Terminal List (2022)", "year":"2022", "image":"https://imersao-java-apis.s3.amazonaws.com/MostPopularTVs_3.jpg", "crew":"Chris Pratt, Constance Wu", "imDbRating":"8.1", "imDbRatingCount":"37067"}],
+        "errorMessage":""}
+
+aula 3 NAsa
+[
+{"copyright":"Dani Caxete", "date":"2022-06-12", "explanation":"Have you ever seen the Man in the Moon? This common question plays on the ability of humans to see pareidolia -- imagining familiar icons where they don't actually exist. The textured surface of Earth's full Moon is home to numerous identifications of iconic objects, not only in modern western culture but in world folklore throughout history. Examples, typically dependent on the Moon's perceived orientation, include the Woman in the Moon and the Rabbit in the Moon. One facial outline commonly identified as the Man in the Moon starts by imagining the two dark circular areas -- lunar maria -- here just above the Moon's center, to be the eyes.  Surprisingly, there actually is a man in this Moon image -- a close look will reveal a real person -- with a telescope -- silhouetted against the Moon. This featured well-planned image was taken in 2016 in Cadalso de los Vidrios in Madrid, Spain. Do you have a favorite object that you see in the Moon?", "hdurl":"https://imersao-java-apis.s3.amazonaws.com/NASA-APOD_1_url.jpg", "media_type":"image", "service_version":"v1", "title":"Find the Man in the Moon", "url":"https://imersao-java-apis.s3.amazonaws.com/NASA-APOD_1_url.jpg"},
+{"copyright":"Bernard Miller", "date":"2022-06-13", "explanation":"The Whirlpool Galaxy is a classic spiral galaxy. At only 30 million light years distant and fully 60 thousand light years across, M51, also known as NGC 5194, is one of the brightest and most picturesque galaxies on the sky.  The featured image is a digital combination of images taken in different colors by the Earth-orbiting Hubble Space Telescope, highlighting many sharp features. Anyone with a good pair of binoculars, however, can see this Whirlpool toward the constellation of the Hunting Dogs (Canes Venatici). M51 is a spiral galaxy of type Sc and is the dominant member of a whole group of galaxies.  Astronomers speculate that M51's spiral structure is primarily due to its gravitational interaction with the smaller galaxy on the image left.", "hdurl":"https://imersao-java-apis.s3.amazonaws.com/NASA-APOD_2_url.jpg", "media_type":"image", "service_version":"v1", "title":"M51: The Whirlpool Galaxy from Hubble", "url":"https://imersao-java-apis.s3.amazonaws.com/NASA-APOD_2_url.jpg"},
+{"copyright":"Joshua Rozells", "date":"2022-06-14", "explanation":"What are all those streaks across the background? Satellite trails. First, the foreground features picturesque rock mounds known as Pinnacles.  Found in the Nambung National Park in Western Australia, these human-sized spires are made by unknown processes from ancient sea shells (limestone). Perhaps more eye-catching, though, is the sky behind. Created by low-Earth orbit satellites reflecting sunlight, all of these streaks were captured in less than two hours and digitally combined onto the single featured image, with the foreground taken consecutively by the same camera and from the same location.  Most of the streaks were made by the developing Starlink constellation of communication satellites, but some are not. In general, the streaks are indicative of an increasing number of satellites nearly continuously visible above the Earth after dusk and before dawn.  Understanding and removing the effects of satellite trails on images from Earth's ground-based cameras and telescopes is now important not only for elegant astrophotography, but for humanity's scientific understanding of the distant universe.   Astrophysicists: Browse 2,800+ codes in the Astrophysics Source Code Library", "hdurl":"https://imersao-java-apis.s3.amazonaws.com/NASA-APOD_3_url.jpg", "media_type":"image", "service_version":"v1", "title":"Satellites Behind Pinnacles", "url":"https://imersao-java-apis.s3.amazonaws.com/NASA-APOD_3_url.jpg"}
+]
+
+        nasa web space telescope
+[
+
+{"date":"2022-07-13", "explanation":"This is the deepest, sharpest infrared image of the cosmos so far. The view of the early Universe toward the southern constellation Volans was achieved in 12.5 hours of exposure with the NIRCam instrument on the James Webb Space Telescope. Of course the stars with six visible spikes are well within our own Milky Way. Their diffraction pattern is characteristic of Webb's 18 hexagonal mirror segments operating together as a single 6.5 meter diameter primary mirror. The thousands of galaxies flooding the field of view are members of the distant galaxy cluster SMACS0723-73, some 4.6 billion light-years away. Luminous arcs that seem to infest the deep field are even more distant galaxies though. Their images are distorted and magnified by the dark matter dominated mass of the galaxy cluster, an effect known as gravitational lensing. Analyzing light from two separate arcs below the bright spiky star, Webb's NIRISS instrument indicates the arcs are both images of the same background galaxy. And that galaxy's light took about 9.5 billion years to reach the James Webb Space Telescope.", "hdurl":"https://imersao-java-apis.s3.amazonaws.com/NASA-APOD-JamesWebbSpaceTelescope_1_url.jpg", "media_type":"image", "service_version":"v1", "title":"Webb's First Deep Field", "url":"https://imersao-java-apis.s3.amazonaws.com/NASA-APOD-JamesWebbSpaceTelescope_1_url.jpg"}
+
+, {"date":"2022-07-14", "explanation":"Cataloged as NGC 3132 the Southern Ring Nebula is a planetary nebula, the death shroud of a dying sun-like star some 2,500 light-years from Earth. Composed of gas and dust the stunning cosmic landscape is nearly half a light-year in diameter, explored in unprecedented detail by the James Webb Space Telescope. In this NIRCam image the bright star near center is a companion of the dying star. In mutual orbit, the star whose transformation has ejected the nebula's gas and dust shells over thousands of years is the fainter stellar partner. Evolving to become a white dwarf, the faint star appears along the diffraction spike extending toward the 8 o'clock position. This stellar pair's orbital motion has resulted the complex structures within the Southern Ring Nebula.", "hdurl":"https://imersao-java-apis.s3.amazonaws.com/NASA-APOD-JamesWebbSpaceTelescope_2_url.jpg", "media_type":"image", "service_version":"v1", "title":"Webb's Southern Ring Nebula", "url":"https://imersao-java-apis.s3.amazonaws.com/NASA-APOD-JamesWebbSpaceTelescope_2_url.jpg"},
+{"date":"2022-07-18", "explanation":"OK, but why can't you combine images from Webb and Hubble? You can, and today's featured image shows one impressive result. Although the recently launched James Webb Space Telescope (Webb) has a larger mirror than Hubble, it specializes in infrared light and can't see blue -- only up to about orange.  Conversely, the Hubble Space Telescope (Hubble) has a smaller mirror than Webb and can't see as far into the infrared as Webb, but can image not only blue light but even ultraviolet.  Therefore, Webb and Hubble data can be combined to create images across a wider variety of colors.  The featured image of four galaxies from Stephan's Quintet shows Webb images as red and also includes images taken by Japan's ground-based Subaru telescope in Hawaii.  Because image data for Webb, Hubble, and Subaru are made freely available, anyone around the world can process it themselves, and even create intriguing and scientifically useful multi-observatory montages.    Stephan's Quintet from just: Webb, Hubble", "hdurl":"https://imersao-java-apis.s3.amazonaws.com/NASA-APOD-JamesWebbSpaceTelescope_3_url.jpg", "media_type":"image", "service_version":"v1", "title":"Stephan's Quintet from Webb, Hubble, and Subaru", "url":"https://imersao-java-apis.s3.amazonaws.com/NASA-APOD-JamesWebbSpaceTelescope_3_url.jpg"}
+
+]
+
+{
+"success": "string",
+        "contents": {
+        "quotes": [
+        {
+        "author": "string",
+                "quote": "string",
+                "tags": [
+                        "string"
+                ],
+                "id": "string",
+                "image": "string",
+                "length": 0
+
+        }
+        ]
+        }
+}
+
+{
+"success": "string", "contents": {    "quotes": [      {        "author": "string", "quote": "string", "tags": [          "string"        ], "id": "string", "image": "string", "length": 0      }    ]  }
+}
+
+
+{
+"glossary": {
+"title": "example glossary",
+        "GlossDiv": {
+        "title": "S",
+                "GlossList": {
+                "GlossEntry": {
+                "ID": "SGML",
+                        "SortAs": "SGML",
+                        "GlossTerm": "Standard Generalized Markup Language",
+                        "Acronym": "SGML",
+                        "Abbrev": "ISO 8879:1986",
+                        "GlossDef": {
+                        "para": "A meta-markup language, used to create markup languages such as DocBook.",
+                                "GlossSeeAlso": ["GML", "XML"]
+                        },
+                        "GlossSee": "markup"
+                }
+                }
+        }
+}
+}
+
+
+[
+{
+  "success": "string",
+  "contents": {
+    "quotes": [
+      {
+        "author": "string",
+        "quote": "string",
+        "tags": [
+          "string"
+        ],
+        "id": "string",
+        "image": "string",
+        "length": 0
+      }
+    ]
+  }
+},
+{
+"success": "string",
+  "contents": {
+    "quotes": [
+      {
+        "author": "BLUMUNA12",
+        "quote": "string",
+        "tags": [
+          "string"
+        ],
+        "id": "string",
+        "image": "string",
+        "length": 0
+      }
+    ]
+  }
+},
+{
+"success": "string",
+  "contents": {
+    "quotes": [
+      {
+        "author": "ALCANTARA",
+        "quote": "string",
+        "tags": [
+          "string"
+        ],
+        "id": "string",
+        "image": "string",
+        "length": 0
+      }
+    ]
+  }
+}
+]
+
+
+
+
+
+
+
+
+[{"tags"=>[          "string"        ],"quotes"=>[      {        "author": "string",        "quote": "string",        "tags": [          "string"        ],"author"=>"string"}
+,{"tags"=>[          "string"        ],"quotes"=>[      {        "author": "BLUMUNA12",        "quote": "string",        "tags": [          "string"        ],"author"=>"BLUMUNA12"}
+,{"tags"=>[          "string"        ],"quotes"=>[      {        "author": "ALCANTARA",        "quote": "string",        "tags": [          "string"        ],"author"=>"ALCANTARA"}]
+
+[{"tags"=>[          "string"        ],"quotes"=>[      {        "author": "string",        "quote": "string",        "tags": [          "string"        ],"author"=>"string"}
+,{"tags"=>[          "string"        ],"quotes"=>[      {        "author": "BLUMUNA12",        "quote": "string",        "tags": [          "string"        ],"author"=>"BLUMUNA12"}, }]
+
+
+
+
+
+
+

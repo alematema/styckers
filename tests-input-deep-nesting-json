@@ -1,0 +1,33 @@
+[{
+"success": "string","contents": {
+    "                               quotes": [
+                                                {
+                                                  "author": "Zembabuir Cross Roads Government",
+                                                  "quote": "string",
+                                                  "tags": [
+                                                    "string"
+                                                  ],
+                                                  "id": "string",
+                                                  "image": "images/cross-roads.jpeg",
+                                                  "length":   456e10
+                                                }
+                                            ]
+                                }
+},
+{
+"success": "keep walking","contents": {
+    "                               quotes": [
+                                                {
+                                                  "author": "AC Cesar & Cesars Entreprises",
+                                                  "quote": "string",
+                                                  "tags": [
+                                                    "string"
+                                                  ],
+                                                  "id": "string",
+                                                  "image": "images/containers.jpeg",
+                                                  "length":   456e10
+                                                }
+                                            ]
+                                }
+}
+]

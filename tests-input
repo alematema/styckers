@@ -1,0 +1,34 @@
+[{
+"success": "string","contents": {
+    "                               quotes": [
+                                                {
+                                                  "author": "Zembabuir Cross Roads Government",
+                                                  "quote": "string",
+                                                  "tags": [
+                                                    "string"
+                                                  ],
+                                                  "id": "string",
+                                                  "image": "images/cross-roads.jpeg",
+                                                  "length":   456e10
+                                                }
+                                            ]
+                                }
+},
+{
+"success": "string","contents": {
+    "                               quotes": [
+                                                {
+                                                  "author": "Zembabuir Cross Roads Government",
+                                                  "quote": "string",
+                                                  "tags": [
+                                                    "string"
+                                                  ],
+                                                  "id": "string",
+                                                  "image": "images/cross-roads.jpeg",
+                                                  "length":   456e10
+                                                }
+                                            ]
+                                }
+}
+]
+

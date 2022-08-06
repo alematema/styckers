@@ -1,0 +1,21 @@
+{
+"success": "string","contents": {
+    "                               quotes": [
+                                                {
+                                                  "author": "Zembabuir Cross Roads Government",
+                                                  "tags": [
+                                                    "string"
+                                                  ],
+                                                  "id":,
+                                                  "image": "images/cross-roads.jpeg",
+                                                  "badbracket":}asdf,
+                                                  "badsquarebracket":]asdf,
+                                                  "valueless":,
+                                                  "badnumeral1st": 012a1b2c3abc,
+                                                  "badnumeral2nd":123 as 1 v 4",,,,
+                                                  "badnumeral3rd":a123 as 1 v 4",
+                                                  "badstringvalue":"123
+                                                }
+                                            ]
+                                }
+}
