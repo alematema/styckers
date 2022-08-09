@@ -57,13 +57,18 @@ O texto abaixo detalha nossa análise e design final da app que implementamos.
 ![Description-2](https://user-images.githubusercontent.com/9969964/181584396-bd75b541-b274-46f1-8643-a41a66da1811.png)
 ![Description-3](https://user-images.githubusercontent.com/9969964/181584445-83bcb112-a9b1-4348-be67-703f0de80144.png)
 #### Conclusão
-<b>Aplicamos sucessivamente o princípio de encapsulamento</b>, e então o código do projeto ficou organizado em duas partes: <br><br>
-        <b>a parte que não varia, o StyckerApp</b><br>
-        <b>a parte que varia de API para API, ou de InputStream para InputStream, ou de uma String para outra String.</b><br><br>
+<b>Aplicamos sucessivamente o princípio de encapsulamento</b>, e então o código do projeto ficou organizado em duas partes: <br>
+<ul>
+  <li> <b>a parte que não varia, o StyckerApp</b><br></li>
+  <li><b>a parte que varia de API para API, ou de InputStream para InputStream, ou de uma String para outra String.</b></li>
+</ul><br>
+       
+
 O <b>StyckerApp é totalmente fechado para mudança ( mas aberto para evolução )</b>, é <b>totalmente imune à mudança ( mas aberto para evolução )</b> : não precisamos mudar nada nele quando queremos chamar outra API diferente de uma API atual <b>(basta ser escrita uma nova λ expression para recupear o json da API, ou de qualquer outra fonte)</b>. <br>
 <b>Não precisamos mudar nada no StyckerApp</b> quando se necessitar gerar styckers apartir de algum json que está em um InputStream qualquer.<br>
 <b>Não precisamos mudar nada no StyckerApp</b> quando queremos 5 valores de 5 chaves ou quando queremos 1 valor de 1 chave ou quando queremos 1.000.000 de valores de 1.000.000 de chaves... isto é assim porque o método <b>getContents</b> foi implementado usando <b>Varargs</b> de String e porque <b>LEMOS</b>, de um objeto [Content](https://github.com/alematema/styckers/blob/master/src/edu/undra/styckers/util/Content.java), qualquer valor, <b>de uma maneira uniforme</b> : <b> content.get("key") </b>. <br><br>
-Para cada um dos exemplos de variação <b>( que não afeta o código do StyckerApp )</b> acima, escrevemos uma λ expression( um algorítmo ) que sabe lidar com essa especificidade e essa λ expression invoca os métodos adequados do StyckerApp. <br><br>
+Para cada um dos exemplos de variação <b>( que não afeta o código do StyckerApp )</b> acima, escrevemos uma λ expression( um algorítmo ) que sabe lidar com essa especificidade e essa λ expression invoca os métodos adequados do StyckerApp : <br>
+    
 Por causa deste <b>design muito bem encapsulado, é fácil e agradável dar manutenção nesse código e muito fácil de ampliar o StyckerApp</b>.
 
 <br><br><br><br><br><br><br><br><br><br>
