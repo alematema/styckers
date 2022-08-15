@@ -25,12 +25,12 @@
 O Styckers App foi um projeto de imersão backend com a linguagem Java, proposto pela escola [alura](https://www.alura.com.br) de tecnologia. A proposta visa criar um app que irá consumir dados de uma API que retorna a classificação de filmes e séries, ao fim do projeto pretende criar stickers personalizado com indicação de filmes/séries para enviar por whatsapp
 
 
-#### Motivação do exercício de análise
+#### MOTIVAÇÃO DO EXERCÍCIO DE ANÁLISE
 Nas 2 primeiras aulas da imersão, o [parseador de arquivos json](https://github.com/alematema/styckers/blob/master/test/edu/undra/styckers/util/JsonParser.java) (implementado usando regex), apresentou-se limitado a extrair pares atributo-valor de apenas jsons pouco aninhados  ([ver <b>teste de insuficiência da regex</b>](https://github.com/alematema/styckers/blob/master/test/edu/undra/styckers/util/RegexInsuficiencyTest.java)). Para se processar jsons com aninhamentos mais fundos, seria necessário ser escrita uma outra <b>regex</b> ([ver <b>teste de insuficiência da regex</b>](https://github.com/alematema/styckers/blob/master/test/edu/undra/styckers/util/RegexInsuficiencyTest.java)). Ainda, para outros jsons, seria necessário ser escrita uma terceira regex. Essa limitação nos pareceu um potencial de criação de complexidade no código do projeto.<br> 
 Além dessa limitação, apresentou-se problema de se ter que escrever uma interface diferente para cada número de pares atributo-valor. Novamente, esse problema é um potencial de criação de complexidade na forma de vários pontos de manutenção no código.<br> 
 <br>A <b>solução</b> que criamos resolveu essas 2 limitações <b>usando encapsulamento</b>. 
 
-#### Resumo solução que criamos
+#### RESUMO SOLUÇÃO CRIADA
   
 A classe [ContentExtractor](https://github.com/alematema/styckers/blob/master/src/edu/undra/styckers/util/ContentExtractor.java) implementa um <b>algoritmo extrator genérico</b> de pares atributo-valor ([ver <b>testes de profundidade de aninhamento</b> de jsons](https://github.com/alematema/styckers/blob/master/test/edu/undra/styckers/util/ContentExtractorTest.java)) . Esse algorítmo que criamos combina <b>State Design Pattern</b> e um pouco de <b>recursão</b>; o algoritmo <b>atravessa</b> um arquivo json e <b>processa adequamente cada caractere</b> e simultaneamente vai computando o conjunto de pares atributo-valor.
  
@@ -50,7 +50,7 @@ Em sequida, ele invoca, indiretamente,  o [ContentExtractor](https://github.com/
 ![uml-styckers-app](https://user-images.githubusercontent.com/9969964/183126255-c1c36789-4a68-4e16-b7a1-a35d179697c5.png)
 
 
-#### Análise e Design OO do Stycker App        
+#### ANÁLISE E DESIGN OO DO STYCKER APP       
 O texto abaixo detalha nossa análise e design final da app que implementamos.
         
 ![Description-1](https://user-images.githubusercontent.com/9969964/181584362-8840a1d0-8b9e-4f6d-b6c0-786373f9bc25.png)
@@ -71,14 +71,14 @@ Para cada um dos exemplos de variação <b>( que não afeta o código do Stycker
     
 Por causa deste <b>design muito bem encapsulado, é fácil e agradável dar manutenção nesse código e muito fácil de ampliar o StyckerApp</b>.
 
-<br><br><br><br><br><br><br><br><br><br>
-### Alguns styckers gerados
+<br><br><br><br><br><br><br><br>
+### ALGUNS STYCKERS GERADOS
 
 ![JAVA](https://user-images.githubusercontent.com/9969964/183130804-1bc0e5dd-8c32-45cc-bde0-d0985dcf3e87.png)
 ![C](https://user-images.githubusercontent.com/9969964/183130896-9f5c32d4-028b-4939-880f-d9d1bab7eb9b.png)
 ![JAVASCRIPT](https://user-images.githubusercontent.com/9969964/183131171-94e6c158-2db2-47cb-8620-034a7cc8607e.png)
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
 ### EXECUTAR O APP
 Fazer download da pasta <b>dist</b><br>
 NO SEU Shell, apontar para <b>JDK 1.8.0_192</b><br>
@@ -87,7 +87,7 @@ NO SEU Shell, apontar para <b>JDK 1.8.0_192</b><br>
 2. <b>DENTRO</b> DA PASTA dist, RODAR O COMANDO <b>java -jar Livro De Receitas - 1.0 - mvc - SAMPLE.jar</b>
 
 
-<br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br>
 ### TECNOLOGIAS 
 <p>
     <img src="https://img.shields.io/badge/OOAD-green?style=for-the-badge"/>
