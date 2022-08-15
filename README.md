@@ -99,6 +99,7 @@ Por causa deste <b>design muito bem encapsulado, é fácil e agradável dar manu
     <img src="https://img.shields.io/badge/GIT-green?style=for-the-badge"/>
     <img src="https://img.shields.io/badge/GIT HUB-pink?style=for-the-badge"/>
 </p>
+Heroku deveria ser listada; ela tem um end point, para onde StyckerApp pode apontar; mas nosso foco aqui é análise e design OO, e portanto não incluimos aqui a Rest API que implementamos; essa API serve um json de linguagens de programação aos clientes dela. 
 
 ### TIPOS ARQUIVOS SUPORTADOS 
 <p>
@@ -106,9 +107,8 @@ Por causa deste <b>design muito bem encapsulado, é fácil e agradável dar manu
     <img src="https://img.shields.io/badge/HTML-inactive?style=for-the-badge"/>
     <img src="https://img.shields.io/badge/CSV-inactive?style=for-the-badge"/>
     <img src="https://img.shields.io/badge/XML-inactive?style=for-the-badge"/>
-   
 </p>
-
+O extrator de conteudo que escrevemos suporta apenas extração de conteudo de <b>arquivos JSON</b>. Mas <b>o mesmo princípio do algoritmo</b> que implementamos para processar o json e computar o cunjuntinho de pares chave=valor <b>pode ser usado para processar outros tipos de arquivos como HTML, CSV, XML</b> e etc. 
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 #### ENGLISH
