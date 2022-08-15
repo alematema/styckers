@@ -267,7 +267,7 @@ public class ContentExtractor {
 
         StringBuilder oneLine = new StringBuilder();
 
-        //onelines the source and strips out spaces (\s)
+        //onelines the source
         Scanner s = new Scanner(json);
         while (s.hasNextLine()) {
             String line = s.nextLine();
