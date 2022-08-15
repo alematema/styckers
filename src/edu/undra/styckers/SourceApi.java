@@ -169,10 +169,6 @@ public enum SourceApi {
                     styckerFooterText += (s.next().charAt(0) + "").toUpperCase();
                 }
                 
-                if(authorFullName.equals("MarceloPoli")){
-                    styckerFooterText="Poli RZD TOP";
-                }
-
                 StyckerApp.generate(inputStream, styckerName, styckerFooterText);
             }
 
