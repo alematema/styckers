@@ -80,11 +80,12 @@ Por causa deste <b>design muito bem encapsulado, é fácil e agradável dar manu
 
 <br><br><br><br><br><br><br><br><br><br><br>
 ### EXECUTAR O APP
-Fazer download da pasta <b>dist</b><br>
-NO SEU Shell, apontar para <b>JDK 1.8.0_192</b><br>
-
-1. ENTRAR NA PASTA <b>dist</b><br>
-2. <b>DENTRO</b> DA PASTA dist, RODAR O COMANDO <b>java -jar Livro De Receitas - 1.0 - mvc - SAMPLE.jar</b>
+1. Fazer download da pasta <b>styckers-master.zip do projeto</b> e unzipar o projeto<br>
+1.1 Criar um projeto java no seu IDE<br>
+2. Copiar os testes ( test folder ) para pasta test (ou qualquer outra equivalente) do projeto no seu IDE<br>
+3. Copiar os fontes ( src folder ) para um projeto no seu IDE e, para a raiz do seu projeto, copiar todos demais arquivos e pastas que estão na pasta /styckers-master, do .zip<br>
+4. <b>Opcionalmente, fazer outro setting em SourceApi.API</b> ( O StyckerApp está setado com um algoritmo que recupera o json de um InputStream associado ao arquivo json-local, que está raiz do projeto ) <br>
+5. Rodar o projeto
 
 
 <br><br><br><br><br><br><br><br><br><br><br>
