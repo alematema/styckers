@@ -56,7 +56,7 @@ O texto abaixo detalha nossa análise e design final da app que implementamos.
 ![Description-1](https://user-images.githubusercontent.com/9969964/181584362-8840a1d0-8b9e-4f6d-b6c0-786373f9bc25.png)
 ![Description-2](https://user-images.githubusercontent.com/9969964/181584396-bd75b541-b274-46f1-8643-a41a66da1811.png)
 ![Description-3](https://user-images.githubusercontent.com/9969964/181584445-83bcb112-a9b1-4348-be67-703f0de80144.png)
-#### Conclusão
+#### CONCLUSÃO
 <b>Aplicamos sucessivamente o princípio de encapsulamento</b>, e então o código do projeto ficou organizado em duas partes: <br>
 <ul>
   <li> <b>a parte que não varia, o StyckerApp</b><br></li>
@@ -79,7 +79,16 @@ Por causa deste <b>design muito bem encapsulado, é fácil e agradável dar manu
 ![JAVASCRIPT](https://user-images.githubusercontent.com/9969964/183131171-94e6c158-2db2-47cb-8620-034a7cc8607e.png)
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br>
-### Tecnologias 
+### EXECUTAR O APP
+Fazer download da pasta <b>dist</b><br>
+NO SEU Shell, apontar para <b>JDK 1.8.0_192</b><br>
+
+1. ENTRAR NA PASTA <b>dist</b><br>
+2. <b>DENTRO</b> DA PASTA dist, RODAR O COMANDO <b>java -jar Livro De Receitas - 1.0 - mvc - SAMPLE.jar</b>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br>
+### TECNOLOGIAS 
 <p>
     <img src="https://img.shields.io/badge/OOAD-green?style=for-the-badge"/>
     <img src="https://img.shields.io/badge/JAVA-blue?style=for-the-badge"/>
@@ -90,7 +99,7 @@ Por causa deste <b>design muito bem encapsulado, é fácil e agradável dar manu
     <img src="https://img.shields.io/badge/GIT HUB-pink?style=for-the-badge"/>
 </p>
 
-### Suportes 
+### TIPOS ARQUIVOS SUPORTADOS 
 <p>
     <img src="https://img.shields.io/badge/JSON-lightgreen?style=for-the-badge"/>
     <img src="https://img.shields.io/badge/HTML-inactive?style=for-the-badge"/>
