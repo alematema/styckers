@@ -211,14 +211,26 @@ public class ContentExtractor {
 
             }
 
+            //this is necessary to force interpreting correctly an array of jsons
+            // [ {},{},...,{} ] or { [ {},{},...,{} ] }
+            if (("" + sb.charAt(i)).equals("[")) {
+
+                if (sb.substring(start + 1, i).trim().isEmpty()) {
+                    identicals = 0;
+                    start = -1;
+                }
+
+            }
+
             if (start != -1 && end != -1) {
 
-                processJSON(sb.substring(start, end + 1), keys)
-                        .stream()
-                        .filter(c -> (c.hasSameKeys(doubleQuote(keys))))
-                        .forEach(c -> {
-                            contents.add(c);
-                        });
+                Content content = new Content();
+
+                processJSON(sb.substring(start, end + 1), keys, content);
+
+                if (content.hasSameKeys(doubleQuote(keys))) {
+                    contents.add(content);
+                }
 
                 start = -1;
                 end = -1;
@@ -247,9 +259,9 @@ public class ContentExtractor {
      * Example:if we want extract the values of key="image" and key="title" in
      * each json object, we pass them as <br>
      * argument call to processJSON method : processJSON(json,"title","image")
-     * @return a list of Content
+     * @return a Content instance
      */
-    private static List<Content> processJSON(String json, String[] keys) {
+    private static void processJSON(String json, String[] keys, Content content) {
 
         if (json == null) {
             throw new NullPointerException("json must be NOT null");
@@ -257,113 +269,28 @@ public class ContentExtractor {
         if (keys == null) {
             throw new NullPointerException("keys must be NOT null");
         }
-
-        if (!json.trim().substring(0, 1).equals("{")) {
-            throw new IllegalArgumentException("source is not a JSON: does not start with {");
+        if (content == null) {
+            throw new NullPointerException("content must be NOT null");
         }
 
         KeysState keysState = new KeysState(Arrays.asList(keys));
         jsonState = keysState;
 
-        StringBuilder oneLine = new StringBuilder();
+        StringBuilder oneLineJson = new StringBuilder();
 
-        //onelines the source
+        //onelines the source and strips out spaces
         Scanner s = new Scanner(json);
         while (s.hasNextLine()) {
             String line = s.nextLine();
-            oneLine.append(line);
+            oneLineJson.append(line);
         }
-
-        List<Content> contents = new ArrayList<>();
 
         //Processes each json charactere
         //The State Design Pattern handles each charactere the appropriate processing 
-        for (int i = 0; i < json.length(); i++) {
-            jsonState.process(json.charAt(i), contents);
+        for (int i = 0; i < oneLineJson.length(); i++) {
+            jsonState.process(json.charAt(i), i, oneLineJson.toString(), content);
         }
 
-        // Some key may be left unprocessed after a reading cycle because of json's deeper or shalow nesting structure.
-        //Then, recursive calls are made to solve this issue
-        if (keysState.getValueState().hasAnyMissingKeyValuePair()) {
-
-            processMissingKeyValuePairs(keysState, keys, json, contents);
-
-        } else {
-
-            if (!contents.isEmpty()) {
-                Content content = contents.get(0);
-                content.keys().forEach(key -> {
-                    processedKeyValues.put(key, content.get(key));
-                });
-
-            }
-        }
-
-        return contents;
-
-    }
-
-    /**
-     * Makes recursive calls to processJSON, until there is ZERO unprocessed key
-     * left behind.
-     * <br>
-     * Some key may be left unprocessed after a reading cycle because of json's
-     * deeper or shalow nesting structure. <br>
-     * These recursive calls solves the problem.
-     *
-     * @param keysState
-     * @param keys
-     * @param json
-     * @param contents
-     */
-    private static void processMissingKeyValuePairs(KeysState keysState, String[] keys, String json, List<Content> contents) {
-        Iterator<Object> it = keysState.getValueState().getProcessedKeyValues().keySet().iterator();
-        while (it.hasNext()) {
-            Object key = it.next();
-            if (keysState.getValueState().getProcessedKeyValues().get(key) != null) {
-                processedKeyValues.put(key, keysState.getValueState().getProcessedKeyValues().get(key));
-            }
-        }
-
-        List<String> remainingKeys = new ArrayList<>();
-        String newSouce = "";
-        for (String key : keys) {
-            if (keysState.getValueState().getProcessedKeyValues().get("\"" + key + "\":") == null) {
-                remainingKeys.add(key);
-            } else {
-//                    newSouce += keysState.getValueState().getProcessedKeyValues().get("\"" + key + "\":");
-            }
-        }
-        String[] remainingKeyss = new String[remainingKeys.size()];
-        for (int i = 0; i < remainingKeys.size(); i++) {
-            remainingKeyss[i] = remainingKeys.get(i);
-        }
-        if (keepRecursion(remainingKeys)) {
-            missingKeyValuePairsCount = remainingKeys.size();
-            processJSON(json, remainingKeyss);
-        }
-
-        Content content = new Content();
-        it = processedKeyValues.keySet().iterator();
-        while (it.hasNext()) {
-            Object key = it.next();
-            content.set(((String) key).replace(":", ""), processedKeyValues.get(key));
-        }
-        contents.add(content);
-        processedKeyValues.clear();
-        missingKeyValuePairsCount = 0;
-    }
-
-    /**
-     * Tells if recursion should goes on.
-     * <br>
-     * It keeps going until there is ZERO unprocessed key left behind.
-     *
-     * @param remainingKeys
-     * @return
-     */
-    private static boolean keepRecursion(List<String> remainingKeys) {
-        return missingKeyValuePairsCount != remainingKeys.size();
     }
 
     /**
@@ -371,7 +298,7 @@ public class ContentExtractor {
      */
     abstract class JsonState {
 
-        abstract public void process(char c, List<Content> contents);
+        abstract public void process(char c, int currentIndex, String json, Content content);
     }
 
     /**
@@ -382,8 +309,10 @@ public class ContentExtractor {
         private int identicals = 1;
         private String key;
         private final KeysState keyState;
-        private String value = "";
-        private String starting;
+        private String value = "";//the key's value
+        private String starting;//the first valid character a key's value has
+        private String current = "";//for recursive processing a possible nested key in this value
+        private int currentIndex = -1;//for recursive processing a possible nested key in this value
         private final List<String> processedKeys = new ArrayList<>();
         private final Map<Object, Object> processedKeyValues = new HashMap<>();
 
@@ -395,7 +324,7 @@ public class ContentExtractor {
         }
 
         @Override
-        public void process(char c, List<Content> contents) {
+        public void process(char c, int currentIndex, String json, Content content) {
 
             if ((c + value).equals(" ")) {//consumes spaces
                 //return;
@@ -406,66 +335,121 @@ public class ContentExtractor {
 
                 value += "" + c;
 
+                if (KeysState.anyKeyStartsWith(current + "" + c, keyState.getKeys())) {
+                    current += "" + c;
+                    if (this.currentIndex == -1) {
+                        this.currentIndex = currentIndex;
+                    }
+                } else {
+
+                    if (KeysState.hasKeyEquals(current, keyState.getKeys())) {
+                        String[] keys = {stripDoubleQuotes(current.replace(":", ""))};
+                        processJSON(json.substring(this.currentIndex), keys, content);
+                        jsonState = this;
+                    }
+
+                    current = "";
+                    this.currentIndex = -1;
+
+                }
+
                 switch (starting) {
-                    case "\""://value is a double quoted string
-
-                        if ((c + "").equals("\"")) {
-                            endsAValueReading(contents);
-                        }
+                    //value is a double quoted string
+                    case "\"":
+                        processDoubleQuotedCase(c, content);
                         break;
-                    case "{"://value is a json object
-                        //eager behaviour:dont return after first match
-                        if ((c + "").equals("{")) {
-                            identicals++;
-                        }
-                        if ((c + "").equals("}")) {
-                            identicals--;
-                        }
-                        if ((c + "").equals("}") && identicals <= 0) { //ends a value reading
-                            endsAValueReading(contents);
-                        }
+                    //value is a json object
+                    //eager behaviour:dont return after first match
+                    case "{":
+                        processeJsonObjectCase(c, content);
                         break;
-                    case "["://value is an array
-                        //eager behaviour:dont return after first match
-                        if ((c + "").equals("[")) {
-                            identicals++;
-                        }
-                        if ((c + "").equals("]")) {
-                            identicals--;
-                        }
-                        if ((c + "").equals("]") && identicals <= 0) { //ends a value reading
-                            endsAValueReading(contents);
-                        }
+                    //value is an array
+                    //eager behaviour:dont return after first match
+                    case "[":
+                        processArrayCase(c, content);
                         break;
-                    default://value is anything, but not cases above
-                        //ends a value reading
-                        if ((c + "").equals("\"") || (c + "").equals(" ") || (c + "").equals("}") || (c + "").equals("]") || (c + "").equals(",")) {
-                            if ((value).startsWith("}")) {
-                                value = "";
-                                endsAValueReading(contents);
-                            } else if ((value).startsWith("]")) {
-                                value = "";
-                                endsAValueReading(contents);
-                            } else if ((value).equals(" ")) {
-                                value = value.substring(0, value.length() - 1);
-                                endsAValueReading(contents);
-                            } else if ((value).startsWith(",")) {
-                                value = "";
-                                endsAValueReading(contents);
-                            } else if ((value).startsWith("\"")) {
-                                value = "";
-                                endsAValueReading(contents);
-                            } else {
-
-                                value = shrinkEagerly(value.trim().replaceAll("\\s", ""));
-
-                                endsAValueReading(contents);
-
-                            }
-                        }
+                    //value is anything, but not cases above
+                    default:
+                        processDefaultCase(c, content);
                         break;
                 }
 
+            }
+        }
+
+        //value is an array
+        //eager behaviour:dont return after first match
+        private void processArrayCase(char c, Content content) {
+            //value is an array
+            //eager behaviour:dont return after first match
+            if ((c + "").equals("[")) {
+                identicals++;
+            }
+            if ((c + "").equals("]")) {
+                identicals--;
+            }
+            if ((c + "").equals("]") && identicals <= 0) { //ends a value reading
+                endsAValueReading(content);
+            }
+        }
+
+        //value is a json object
+        //eager behaviour:dont return after first match
+        private void processeJsonObjectCase(char c, Content content) {
+            //value is a json object
+            //eager behaviour:dont return after first match
+            if ((c + "").equals("{")) {
+                identicals++;
+            }
+            if ((c + "").equals("}")) {
+                identicals--;
+            }
+            if ((c + "").equals("}") && identicals <= 0) { //ends a value reading
+                endsAValueReading(content);
+            }
+        }
+
+        //value is a double quoted string
+        private void processDoubleQuotedCase(char c, Content content) {
+
+            if ((c + "").equals("\"")) {
+                endsAValueReading(content);
+            }
+        }
+
+        /**
+         * Value is anything but an array or a json object or a double quoted
+         * string
+         *
+         * @param c
+         * @param content
+         */
+        private void processDefaultCase(char c, Content content) {
+            //value is anything, but not cases above
+            //ends a value reading
+            if ((c + "").equals("\"") || (c + "").equals(" ") || (c + "").equals("}") || (c + "").equals("]") || (c + "").equals(",")) {
+                if ((value).startsWith("}")) {
+                    value = "";
+                    endsAValueReading(content);
+                } else if ((value).startsWith("]")) {
+                    value = "";
+                    endsAValueReading(content);
+                } else if ((value).equals(" ")) {
+                    value = value.substring(0, value.length() - 1);
+                    endsAValueReading(content);
+                } else if ((value).startsWith(",")) {
+                    value = "";
+                    endsAValueReading(content);
+                } else if ((value).startsWith("\"")) {
+                    value = "";
+                    endsAValueReading(content);
+                } else {
+
+                    value = shrinkEagerly(value.trim().replaceAll("\\s", ""));
+
+                    endsAValueReading(content);
+
+                }
             }
         }
 
@@ -474,43 +458,28 @@ public class ContentExtractor {
          * Ends a value reading.<br>
          * A value is the thing which is associated with the current key being
          * processed.<br>
-         * If it is a full ending, e.g, all keys were fully processed in this
-         * cycle, then an instance of Content is generated and added to contents
-         * list<br>
-         * Then, all the stuffs are reset and the states will be ready for
-         * another fully searching cycle.<br>
-         * Otherwise,if there are remaining unprocessed keys, then the current
-         * key=value pair is put in a map<br>
-         * and this ValueState instance is partially reset, as it is the
-         * KeyState instace, letting it ready for processing remaining keys.
          *
-         * @param contents the list of content to be filled.
+         *
+         * Deals with logic for correctly setting and storing a key=value
+         * pair.<br><br>
+         * If a key, such as "title" is found twice or more times in a json,
+         * then a <b>List</b> of<br>
+         * values is created and associated with the key, and the key=value pair
+         * is stored in a map<br>
+         * Otherwise, if the "title" key is found only once, then a
+         *
+         *
+         * @param content the content to be filled.
          */
-        public void endsAValueReading(List<Content> contents) {
+        public void endsAValueReading(Content content) {
 
-            if (processedKeys.size() == keyState.getKeys().size()) {//must create an Content instance
+            setKeyValue(content);
 
-                setKeyValue();
-
-                Content content = new Content();
-                Iterator<Object> it = processedKeyValues.keySet().iterator();
-                while (it.hasNext()) {
-                    Object keyy = it.next();
-                    content.set(((String) keyy).replace(":", ""), processedKeyValues.get(keyy));
-                }
-
-                contents.add(content);
-
-                reset();
-
-            } else {
-                setKeyValue();
-                value = "";
-                key = "";
-                starting = "";
-                identicals = 1;
-
-            }
+            value = "";
+            key = "";
+            starting = "";
+            identicals = 1;
+            current = "";
 
             jsonState = keyState;//returns processing keys state
 
@@ -530,23 +499,31 @@ public class ContentExtractor {
          * put in the map.<br>
          *
          */
-        private void setKeyValue() {
-            if (processedKeyValues.get(key) != null) {
-                Object vallue = processedKeyValues.get(key);
-                if (vallue instanceof List) {
+        private void setKeyValue(Content content) {
+
+            if (content.get(key.replace(":", "")) != null) {//json has at least 2 samenamed keys
+
+                Object vallue = content.get(key.replace(":", ""));
+
+                if (vallue instanceof List) {//adds this value to the list and resets content's key
 
                     List<String> values = (ArrayList<String>) vallue;
                     values.add(this.value);
-                    processedKeyValues.put(key, values);
+                    content.set(key.replace(":", ""), values);
 
-                } else {
+                } else { //creates a list and adds this value and previous value to the list and resets content's key
+
                     List<String> values = new ArrayList<>();
                     values.add((String) vallue);
                     values.add(this.value);
-                    processedKeyValues.put(key, values);
+                    content.set(key.replace(":", ""), values);
+
                 }
+
             } else {
-                processedKeyValues.put(key, value);
+
+                content.set(key.replace(":", ""), value);
+
             }
         }
 
@@ -625,7 +602,7 @@ public class ContentExtractor {
         }
 
         @Override
-        public void process(char c, List<Content> contents) {
+        public void process(char c, int currentIndex, String json, Content content) {
             if (anyKeyStartsWith(current + "" + c)) {
 
                 current += "" + c;
@@ -635,7 +612,7 @@ public class ContentExtractor {
                 if (hasKeyEquals(current)) {
                     jsonState = valueState;
                     valueState.setKey(current);
-                    valueState.process(c, contents);
+                    valueState.process(c, currentIndex, json, content);
                 }
 
                 current = "";
@@ -680,6 +657,20 @@ public class ContentExtractor {
 
         public ValueState getValueState() {
             return valueState;
+        }
+
+        static public boolean anyKeyStartsWith(String s, List<String> keys) {
+            return keys.stream().anyMatch(key -> (key.startsWith(s)));
+        }
+
+        /**
+         * Checks if any key is equals to current.
+         *
+         * @param current
+         * @return
+         */
+        static public boolean hasKeyEquals(String current, List<String> keys) {
+            return keys.indexOf(current) != -1;
         }
 
     }
@@ -727,10 +718,11 @@ public class ContentExtractor {
 
         return s;
     }
+
     /**
-     * 
+     *
      * @param value
-     * @return 
+     * @return
      */
     public static String shrinkEagerlySingle(String value) {
 
@@ -766,13 +758,11 @@ public class ContentExtractor {
 
         return value.substring(0, value.length() - 1).equals(shrinkEagerly(value.substring(0, value.length() - 1))) ? value : shrinkEagerly(value.substring(0, value.length() - 1));
     }
-    
-    
-    
+
     /**
-     * 
+     *
      * @param value
-     * @return 
+     * @return
      */
     public static String shrinkFromEnding(String value) {
 
@@ -808,15 +798,15 @@ public class ContentExtractor {
 
         return value.substring(0, value.length() - 1).equals(shrinkEagerly(value.substring(0, value.length() - 1))) ? value : shrinkEagerly(value.substring(0, value.length() - 1));
     }
-    
+
     /**
-     * 
+     *
      * @param value
-     * @return 
+     * @return
      */
     public static String shrinkFromBeginnig(String value) {
 
-          //strips from head
+        //strips from head
         while (value.length() > 0 && !(value.startsWith("0")
                 || value.startsWith("1")
                 || value.startsWith("2")
@@ -849,14 +839,15 @@ public class ContentExtractor {
 
         return value.substring(0, value.length() - 1).equals(shrinkEagerly(value.substring(0, value.length() - 1))) ? value : shrinkEagerly(value.substring(0, value.length() - 1));
     }
+
     /**
-     * 
+     *
      * @param value
-     * @return 
+     * @return
      */
     public static String shrinkEagerly(String value) {
 
-       while (value.length() > 0 && !(value.endsWith("0")
+        while (value.length() > 0 && !(value.endsWith("0")
                 || value.endsWith("1")
                 || value.endsWith("2")
                 || value.endsWith("3")
@@ -888,10 +879,11 @@ public class ContentExtractor {
 
         return value.substring(0, value.length() - 1).equals(shrinkEagerly(value.substring(0, value.length() - 1))) ? value : shrinkEagerly(value.substring(0, value.length() - 1));
     }
+
     /**
-     * 
+     *
      * @param value
-     * @return 
+     * @return
      */
     public static String shrinkEagerlyFromBothSides(String value) {
 
@@ -941,14 +933,12 @@ public class ContentExtractor {
             return "";
         }
 
-        
-        
         return value.substring(1, value.length() - 1).equals(shrinkEagerly(value.substring(1, value.length() - 1))) ? value : shrinkEagerly(value.substring(1, value.length() - 1));
     }
 
     public static void main(String[] args) throws FileNotFoundException {
 
-//        List<Content> contents = ContentExtractor.extract(new FileInputStream(new File("input")), SourceType.JSON, "success", "author");
+        List<Content> contents = ContentExtractor.extract(new FileInputStream(new File("input")), SourceType.JSON, "success", "author");
 //        List<Content> contents = ContentExtractor.extract(new FileInputStream(new File("input")), SourceType.JSON, "contents");
 //        List<Content> contents = ContentExtractor.extract(new FileInputStream(new File("input")), SourceType.JSON, "author");
 //        List<Content> contents = ContentExtractor.extract(new FileInputStream(new File("input")), SourceType.JSON, "quotes");
@@ -961,7 +951,7 @@ public class ContentExtractor {
 //        List<Content> contents = ContentExtractor.extract(new FileInputStream(new File("input")), SourceType.JSON, "contents", "author");
 //        List<Content> contents = ContentExtractor.extract(new FileInputStream(new File("input")), SourceType.JSON, "contentsdfs", "tags");
 //        List<Content> contents = ContentExtractor.extract(new FileInputStream(new File("tests-input-bad-format-json")), SourceType.JSON, "id", "quote", "badlengthstring");
-        List<Content> contents = ContentExtractor.extract(new FileInputStream(new File("tests-input-bad-key-value-pair-format-json")), SourceType.JSON, "id");
+//        List<Content> contents = ContentExtractor.extract(new FileInputStream(new File("tests-input-bad-key-value-pair-format-json")), SourceType.JSON, "id");
         System.out.println(contents);
 
 //        System.out.println(ContentExtractor.shrinkEagerly("1002b0a109sd7"));
