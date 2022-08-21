@@ -1,0 +1,16 @@
+{
+"success": "string",
+"contents": {
+        "quotes": [
+        {"author": "recursivelly-found-author",
+                "quote": "string",
+                "tags": [
+                        "string"
+                ],
+                "id": "string",
+                "image": "string",
+                "length": 0
+            }
+        ]
+        }
+}
